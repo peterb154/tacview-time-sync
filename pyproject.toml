@@ -1,15 +1,45 @@
 [tool.poetry]
-name = "tacview-time-sync"
+name = "tacview-timesync"
 version = "0.1.0"
-description = ""
-authors = ["Brian Peterson <brian.peterson@cloudshift.cc>"]
+description = "Calculate new video start timestamp from track event time and video event delta"
+authors = ["Brian Peterson <brian@epetersons.com>"]
 readme = "README.md"
-packages = [{include = "tacview_time_sync"}]
+packages = [{include = "tacview_timesync"}]
+
+[tool.poetry.scripts]
+tvts = "tacview_timesync.tvts:main"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.8.1"
+xattr = "^0.10.1"
 
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
+pytest-cov = "^4.1.0"
+autoflake = "^2.2.1"
+black = "^22.1.0"
+pytest-watch = "^4.2.0"
+flake8 = "^6.1.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.black]
+line-length = 120
+
+[tool.coverage.run]
+source = ["tacview_timesync/", ]
+branch = true
+omit = ["**/tests/*"]
+
+[tool.coverage.report]
+#fail_under=80
+skip_empty = true
+skip_covered = true
+show_missing = true
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:"]
