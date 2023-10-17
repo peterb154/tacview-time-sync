@@ -64,12 +64,17 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
 
-      - name: Build
-        run: |
-          python -m poetry build
+#      - name: Build
+#        run: |
+#          python -m poetry build
 
-      - name: Publish
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          python -m poetry run semantic-release --verbose publish
+#      - name: Publish
+#        env:
+#          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: |
+#          python -m poetry run semantic-release --verbose publish
+
+      - name: Python Semantic Release
+        uses: python-semantic-release/python-semantic-release@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
