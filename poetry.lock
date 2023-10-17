@@ -420,6 +420,17 @@ pytest = ">=2.6.4"
 watchdog = ">=0.6.0"
 
 [[package]]
+name = "semantic-release"
+version = "0.1.0"
+description = ""
+optional = false
+python-versions = ">=3.6,<4.0"
+files = [
+    {file = "semantic-release-0.1.0.tar.gz", hash = "sha256:943c4d2f5bf2f42958c1868f3c5ccabfcade6017d9d7562192d24053fb2c8efa"},
+    {file = "semantic_release-0.1.0-py3-none-any.whl", hash = "sha256:ac7bbd0aaf3bad04d812fae2979386388c9c9a1af489ed97f3fdbaa24eef2a2b"},
+]
+
+[[package]]
 name = "tomli"
 version = "2.0.1"
 description = "A lil' TOML parser"
@@ -556,4 +567,4 @@ cffi = ">=1.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "53fa60751b09d055c937cd2fd967fafdd2abf2978556bafe05b0ba82a28ee5a5"
+content-hash = "c72480cda92f841475306e59bb6d9374334fbdd3a460c23ffc760e96bb5f35f4"

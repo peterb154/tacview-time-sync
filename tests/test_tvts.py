@@ -44,9 +44,7 @@ def test_parse_args():
 
 
 def test_parse_args_terse():
-    result = tvts.parse_args(
-        args=["-tt", "2020-01-10 10:00:00", "-td", "0:10", "-vd", "0:20"]
-    )
+    result = tvts.parse_args(args=["-tt", "2020-01-10 10:00:00", "-td", "0:10", "-vd", "0:20"])
     assert result.track_event_time == "2020-01-10 10:00:00"
     assert result.track_event_delta == "0:10"
     assert result.video_event_delta == "0:20"
