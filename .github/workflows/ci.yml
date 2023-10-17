@@ -34,9 +34,9 @@ jobs:
     needs: Quality
     # https://github.community/t/how-do-i-specify-job-dependency-running-in-another-workflow/16482
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'chore(release):')
-    permissions: write-all
-#      contents: write
-#      id-token: write
+    permissions:
+      contents: write
+      id-token: write
     runs-on: ubuntu-latest
     concurrency: release
     steps:
