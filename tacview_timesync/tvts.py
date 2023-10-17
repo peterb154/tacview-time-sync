@@ -31,26 +31,26 @@ def get_file_metadata(file_path: str) -> None:
 
 def parse_args(args: list) -> argparse.ArgumentParser.parse_args:
     parser = argparse.ArgumentParser(
-        description="Calculate new video start timestamp from track event time and video event delta"
+        description="Calculate new video start timestamp from track start time, track event delta and video event delta"
     )
     parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
     parser.add_argument(
         "-tt",
         "--track-event-time",
         required=True,
-        help='Track absolute event time in ISO 8601 format (ex: "2020-06-01 17:00:00")',
+        help='Track absolute event time in ISO 8601 format (ex: "2010-10-01 10:00:00")',
     )
     parser.add_argument(
         "-td",
         "--track-event-delta",
         required=True,
-        help='Track event time in minutes and seconds from video start (ex: "5:50")',
+        help='Track event time in minutes and seconds from track start (ex: "0:10")',
     )
     parser.add_argument(
         "-vd",
         "--video-event-delta",
         required=True,
-        help='Video event time in minutes and seconds from video start (ex: "5:43")',
+        help='Video event time in minutes and seconds from video start (ex: "0:20")',
     )
     parser.add_argument("-vf", "--video-file_name", help="optional video file name to which we will add metadata")
     return parser.parse_args(args)

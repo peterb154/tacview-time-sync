@@ -43,6 +43,17 @@ def test_parse_args():
     assert result.verbose is True
 
 
+def test_parse_args_terse():
+    result = tvts.parse_args(
+        args=["-tt", "2020-01-10 10:00:00", "-td", "0:10", "-vd", "0:20"]
+    )
+    assert result.track_event_time == "2020-01-10 10:00:00"
+    assert result.track_event_delta == "0:10"
+    assert result.video_event_delta == "0:20"
+    assert result.video_file_name is None
+    assert result.verbose is False
+
+
 @mock.patch("tacview_timesync.tvts.xattr")
 def test_get_file_metadata(mock_xattr):
     mock_xattr.listxattr.return_value = ["key1", "key2"]
