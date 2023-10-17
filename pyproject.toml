@@ -10,7 +10,7 @@ packages = [{include = "tacview_timesync"}]
 tvts = "tacview_timesync.tvts:main"
 
 [tool.poetry.dependencies]
-python = "^3.8.1"
+python = "^3.10"
 xattr = "^0.10.1"
 
 
@@ -38,7 +38,7 @@ branch = true
 omit = ["**/tests/*"]
 
 [tool.coverage.report]
-#fail_under=80
+fail_under=90
 skip_empty = true
 skip_covered = true
 show_missing = true

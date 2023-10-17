@@ -3,6 +3,9 @@
 test:
 	pytest --cov
 
+test-watch:
+	ptw tacview_timesync/ tests/ -- tests/ --cov
+
 lint:
 	flake8 --statistics --tee
 

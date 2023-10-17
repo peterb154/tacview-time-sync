@@ -42,7 +42,6 @@ mypy-extensions = ">=0.4.3"
 pathspec = ">=0.9.0"
 platformdirs = ">=2"
 tomli = {version = ">=1.1.0", markers = "python_full_version < \"3.11.0a7\""}
-typing-extensions = {version = ">=3.10.0.0", markers = "python_version < \"3.10\""}
 
 [package.extras]
 colorama = ["colorama (>=0.4.3)"]
@@ -432,17 +431,6 @@ files = [
 ]
 
 [[package]]
-name = "typing-extensions"
-version = "4.8.0"
-description = "Backported and Experimental Type Hints for Python 3.8+"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "typing_extensions-4.8.0-py3-none-any.whl", hash = "sha256:8f92fc8806f9a6b641eaa5318da32b44d401efaac0f6678c9bc448ba3605faa0"},
-    {file = "typing_extensions-4.8.0.tar.gz", hash = "sha256:df8e4339e9cb77357558cbdbceca33c303714cf861d1eef15e1070055ae8b7ef"},
-]
-
-[[package]]
 name = "watchdog"
 version = "3.0.0"
 description = "Filesystem events monitoring"
@@ -567,5 +555,5 @@ cffi = ">=1.0"
 
 [metadata]
 lock-version = "2.0"
-python-versions = "^3.8.1"
-content-hash = "39f8c31068dc62c7e6bfc6d2aca03421437c13f348ffc2fccf68f46fb5a1f776"
+python-versions = "^3.10"
+content-hash = "53fa60751b09d055c937cd2fd967fafdd2abf2978556bafe05b0ba82a28ee5a5"

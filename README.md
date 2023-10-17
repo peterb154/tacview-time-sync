@@ -7,6 +7,32 @@ timestamp as metadata.
 
 See https://tacview.fandom.com/wiki/Synchronized_Audio/Video_Playback for more information.
 
+The goal is to determine the correct start time for the video, so that it aligns with the track. 
+- In the illustration below, the tacview track file starts at 2020-10-01 at 10am. This is the "tt" or track time
+expressed in ISO 8601 format. ex: "2020-10-10 10:00:00"
+- At 10 seconds after the track starts, an event occurs, perhaps a jet starts to taxi. This is the "td" or track delta
+expressed in minutes:seconds. ex: "0:10"
+- At 20 seconds after the video starts, the same event occurs. This is the "vd" or video delta expressed in 
+minutes:seconds. ex: "0:20"
+
+```
+       tt = track start time, assume 2020-10-10 10:00:00 (this is the dcs mission time)
+       |______________________________|
+       |             td               |  << track file
+       |______________________________|     track delta (td) the time into the track where the event occurs
+    |____________________________________|
+    |                vd                  |  << video file, usually starts before and ends after track
+    |____________________________________|     video delta (vd) is the time into the video where the same event occurs
+                     ^ = event delta, an event, like starting to taxi where you can see it in the track and video
+```
+
+The reason for the difference is that tracks and videos rarely start at the same time, but tacview needs to know
+how to align the 2 files. 
+
+To tell tacview when to start the video in reference to the track, we can include the video start timestamp in the
+filename or in the file metadata.
+
+
 # Requirements
 - python3.6+
 
@@ -15,8 +41,8 @@ See https://tacview.fandom.com/wiki/Synchronized_Audio/Video_Playback for more i
 
 # Usage
 ```
-$ tvts --help 
-usage: tvts [-h] [-v] -tt TRACK_EVENT_TIME -vd VIDEO_EVENT_DELTA [-vf VIDEO_FILE_NAME]
+$ tvts -h
+usage: tvts [-h] [-v] -tt TRACK_EVENT_TIME -td TRACK_EVENT_DELTA -vd VIDEO_EVENT_DELTA [-vf VIDEO_FILE_NAME]
 
 Calculate new video start timestamp from track event time and video event delta
 
@@ -25,30 +51,34 @@ options:
   -v, --verbose         increase output verbosity
   -tt TRACK_EVENT_TIME, --track-event-time TRACK_EVENT_TIME
                         Track absolute event time in ISO 8601 format (ex: "2020-06-01 17:00:00")
+  -td TRACK_EVENT_DELTA, --track-event-delta TRACK_EVENT_DELTA
+                        Track event time in minutes and seconds from video start (ex: "5:50")
   -vd VIDEO_EVENT_DELTA, --video-event-delta VIDEO_EVENT_DELTA
                         Video event time in minutes and seconds from video start (ex: "5:43")
   -vf VIDEO_FILE_NAME, --video-file_name VIDEO_FILE_NAME
                         optional video file name to which we will add metadata
+
 ```
 
 # Examples
 
 #### To get the correct timestamp for a video file:
 1. Identify an event that you can see happen in the track file and in the video (i.e. start taxi)
-2. Determine the absolute time of the event in the track file (i.e. 2020-06-01 17:00:00).
-3. Then determine the offset time of the event in the video (i.e. 5:43 into the video).
-4. Then run the following command to calculate the new video start timestamp:
+2. Determine the absolute time of the event in the track file (i.e. 2020-01-10 10:00:00).
+3. Then determine the offset time of the event in the trac (i.e. 0:10 into the video).
+4. Then determine the offset time of the event in the video (i.e. 0:20 into the video).
+5. Then run the following command to calculate the new video start timestamp:
     ```
-    $ tvts -tt "2020-06-01 17:00:00" -vd "5:43"
-    new video start timestamp: 20200601T165417Z
+    $ tvts -tt "2020-01-10 10:00:00" -td "0:10" -vd "0:20"
+    new video start timestamp: 20200110T095950Z
     ```
-5. Add the new video start timestamp to the video file name (i.e. `sockeye-dcs-20200601T165417Z.mp4`)
+6. Add the new video start timestamp to the video file name (i.e. `sockeye-dcs-20200110T095950Z.mp4`)
 
 #### To add the timestamp as metadata to a file, add the -vf argument:
 ```
-$ tvts -tt "2020-06-01 17:00:00" -vd "5:43" -vf sockeye-dcs.mp4
-new video start timestamp: 20200601T165417Z
-INFO:root:Adding metadata to file sockeye-dcs.mp4 - ['Media Created': '20200601T165417Z']
+$ tvts -tt "2020-01-10 10:00:00" -td "0:10" -vd "0:20" -vf sockeye-dcs.mp4
+new video start timestamp: 20200110T095950Z
+INFO:root:Adding metadata to file sockeye-dcs.mp4 - ['Media Created': '20200110T095950Z']
 ```
 
 # Developer Setup
