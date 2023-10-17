@@ -21,6 +21,7 @@ autoflake = "^2.2.1"
 black = "^22.1.0"
 pytest-watch = "^4.2.0"
 flake8 = "^6.1.0"
+python-semantic-release = "^8.1.2"
 
 [build-system]
 requires = ["poetry-core"]
@@ -43,3 +44,13 @@ skip_empty = true
 skip_covered = true
 show_missing = true
 exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:"]
+
+[tool.semantic_release]
+version_variable = [
+    "tacview_timesync/__init__.py:__version__",
+    "pyproject.toml:version"
+]
+branch = "main"
+upload_to_pypi = false
+upload_to_release = true
+build_command = "python -m poetry build"
